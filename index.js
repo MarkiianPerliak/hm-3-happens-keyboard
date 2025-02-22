@@ -11,14 +11,30 @@ buttonRender.addEventListener("click", (event) => {
 
 
 function createBoxes(amount) {
+    const baseSize = 50;
+    const increment = 10;
     for (let i = 0; i < amount; i++) {
         const divElement = document.createElement("div");
-        divElement.style.width = "50px";
-        divElement.style.height = "50px";
+        divElement.className = "created-divs";
+        const widthHeight = baseSize + increment * i;
+        divElement.style.width = `${widthHeight}px`;
+        divElement.style.height = `${widthHeight}px`;
         divElement.style.background = `rgb(${Math.random() * (255 - 0) + 0}, ${Math.random() * (255 - 0) + 0}, ${Math.random() * (255 - 0) + 0})`;
         containerElement.append(divElement)
         console.log(containerElement)
     }
+}
+
+buttonDestroy.addEventListener("click", (event) => {
+    destroyBoxes()
+})
+
+function destroyBoxes() {
+    const boxes = document.querySelectorAll(".created-divs")
+    boxes.forEach(box => {
+        box.remove();
+    })
+
 }
 
 console.log(containerElement)
