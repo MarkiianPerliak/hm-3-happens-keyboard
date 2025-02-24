@@ -21,7 +21,6 @@ function createBoxes(amount) {
         divElement.style.height = `${widthHeight}px`;
         divElement.style.background = `rgb(${Math.random() * (255 - 0) + 0}, ${Math.random() * (255 - 0) + 0}, ${Math.random() * (255 - 0) + 0})`;
         containerElement.append(divElement)
-        console.log(containerElement)
     }
 }
 
@@ -37,19 +36,34 @@ function destroyBoxes() {
 
 }
 
-console.log(containerElement)
 
-const galleryItems = document.querySelectorAll("img");
+// 2
 
+const galleryItems = document.querySelectorAll(".image");
+let indexElement = 0;
 
+galleryItems.forEach((item) => {
+    item.style.display = "none";
+});
 
-
+if (galleryItems.length > 0) {
+    galleryItems[indexElement].style.display = "block";
+}
 
 window.addEventListener("keydown", (event) => {
-    let indexElement = 0;
-    const firstElement = galleryItems[indexElement];
-    firstElement.style.display = "block";
     if (event.code === "ArrowRight") {
+        galleryItems[indexElement].style.display = "none";
         indexElement += 1;
+        if (indexElement >= galleryItems.length) {
+            indexElement = 0;
+        }
+        galleryItems[indexElement].style.display = "block";
+    } else if (event.code === "ArrowLeft") {
+        galleryItems[indexElement].style.display = "none";
+        indexElement -= 1;
+        if (indexElement < 0) {
+            indexElement = galleryItems.length - 1;
+        }
+        galleryItems[indexElement].style.display = "block";
     }
-})
+});
